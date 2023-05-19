@@ -22,7 +22,10 @@ jobs:
         - name: Convert OpenAPI to JSON Schema
           run: |
             npx openapi2jsonschema -i ${{ github.workspace }}/openapi.yaml -o ${{ github.workspace }}/output_directory
-  
+        
+        - name: List files in output_directory
+          run: ls ${{ github.workspace }}/output_directory   
+
         - name: Print generated file sobre o openapi.yaml
           run: cat ${{ github.workspace }}/output_directory/schema.json
 
