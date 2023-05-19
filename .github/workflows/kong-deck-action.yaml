@@ -1,0 +1,20 @@
+name: Kong Deck Action
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy_kong:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Kong Deck
+        run: npm install -g kong-deck
+
+      - name: Deploy Kong Configuration
+        run: kong-deck sync --config deck.yaml

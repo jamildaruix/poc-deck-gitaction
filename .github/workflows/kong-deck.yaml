@@ -1,0 +1,19 @@
+name: Kong Deck POC
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy_kong:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy Kong Deck
+        uses: kong/deck@v1
+        with:
+          deck_args: sync --config deck.yaml
