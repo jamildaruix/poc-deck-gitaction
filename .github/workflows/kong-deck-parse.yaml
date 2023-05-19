@@ -16,9 +16,9 @@ jobs:
       - name: Install openapi2jsonschema
         run: npm install @openapi-contrib/openapi-schema-to-json-schema
 
-      - name: Convert OpenAPI to JSON Schema
+       - name: Convert OpenAPI to JSON Schema
         run: |
-          npx openapi2jsonschema -o output_directory input_file.yaml
+          npx openapi2jsonschema -i input_file.yaml -o output_directory
 
       - name: Generate Kong Deck Configuration
         run: |
