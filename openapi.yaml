@@ -43,3 +43,5 @@ components:
           type: string
         email:
           type: string
+        nameFirst:
+          type: string
