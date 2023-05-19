@@ -14,15 +14,18 @@ jobs:
           uses: actions/checkout@v2
   
         - name: Print input_file.yaml
-          run: cat ${{ github.workspace }}/input_file.yaml
+          run: cat ${{ github.workspace }}/openapi.yaml
   
         - name: Install openapi2jsonschema
           run: npm install @openapi-contrib/openapi-schema-to-json-schema
   
         - name: Convert OpenAPI to JSON Schema
           run: |
-            npx openapi2jsonschema -i ${{ github.workspace }}/input_file.yaml -o ${{ github.workspace }}/output_directory
+            npx openapi2jsonschema -i ${{ github.workspace }}/openapi.yaml -o ${{ github.workspace }}/output_directory
   
+        - name: Print generated file sobre o openapi.yaml
+          run: cat ${{ github.workspace }}/output_directory/schema.json
+
         - name: Generate Kong Deck Configuration
           run: |
             # Aqui você pode adicionar o código necessário para gerar o arquivo deck.yaml com base nos esquemas JSON convertidos
