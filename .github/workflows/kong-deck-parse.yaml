@@ -31,11 +31,8 @@ jobs:
                 echo "  - $(cat $file)" >> "${{ github.workspace }}/deck.yaml"
               done
           
-        - name: Download deck.yaml
-          uses: actions/upload-artifact@v2
-          with:
-            name: deck
-            path: ${{ github.workspace }}/deck.yaml
+        - name: Print deck.yaml content
+          run: cat ${{ github.workspace }}/deck.yaml
               
         - name: Install Kong Deck
           run: npm install -g kong-deck
