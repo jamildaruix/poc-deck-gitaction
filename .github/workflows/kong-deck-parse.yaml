@@ -20,6 +20,9 @@ jobs:
         run: |
           npx openapi2jsonschema -i input_file.yaml -o output_directory
 
+      - name: Print input_file.yaml
+        run: cat input_file.yaml
+
       - name: Generate Kong Deck Configuration
         run: |
           # Aqui você pode adicionar o código necessário para gerar o arquivo deck.yaml com base nos esquemas JSON convertidos
