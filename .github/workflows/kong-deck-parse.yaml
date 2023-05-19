@@ -10,25 +10,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Install openapi2jsonschema
-        run: npm install @openapi-contrib/openapi-schema-to-json-schema
-
-      - name: Convert OpenAPI to JSON Schema
-        run: |
-          npx openapi2jsonschema -i input_file.yaml -o output_directory
-
-      - name: Print input_file.yaml
-        run: cat input_file.yaml
-
-      - name: Generate Kong Deck Configuration
-        run: |
-          # Aqui você pode adicionar o código necessário para gerar o arquivo deck.yaml com base nos esquemas JSON convertidos
-
-      - name: Install Kong Deck
-        run: npm install -g kong-deck
-
-      - name: Deploy Kong Configuration
-        run: kong-deck sync --config deck.yaml
+        - name: Checkout code
+          uses: actions/checkout@v2
+  
+        - name: Print input_file.yaml
+          run: cat ${{ github.workspace }}/input_file.yaml
+  
+        - name: Install openapi2jsonschema
+          run: npm install @openapi-contrib/openapi-schema-to-json-schema
+  
+        - name: Convert OpenAPI to JSON Schema
+          run: |
+            npx openapi2jsonschema -i ${{ github.workspace }}/input_file.yaml -o ${{ github.workspace }}/output_directory
+  
+        - name: Generate Kong Deck Configuration
+          run: |
+            # Aqui você pode adicionar o código necessário para gerar o arquivo deck.yaml com base nos esquemas JSON convertidos
+  
+        - name: Install Kong Deck
+          run: npm install -g kong-deck
+  
+        - name: Deploy Kong Configuration
+          run: kong-deck sync --config ${{ github.workspace }}/deck.yaml
