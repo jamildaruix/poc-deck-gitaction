@@ -22,21 +22,20 @@ jobs:
         - name: Convert OpenAPI to JSON Schema
           run: |
             npx openapi2jsonschema -i ${{ github.workspace }}/openapi.yaml -o ${{ github.workspace }}/output_directory
+                    
+        - name: Loop through files
+          run: |
+              for file in $(find "${{ github.workspace }}/output_directory" -type f); do
+                echo "Processing file: $file"
+                # Faça o que você precisa com cada arquivo aqui
+              done
         
-        - name: Check directory for files
-          run: |
-              file_count=$(ls -1A "${{ github.workspace }}/output_directory" | wc -l)
-              if [ $file_count -gt 0 ]; then
-                echo "Arquivos criados"
-              else
-                echo "Diretório está vazio"
-                exit 1 # Encerrar a execução da pipeline com falha
-              fi
-            
-        - name: Generate Kong Deck Configuration
-          run: |
-            # Aqui você pode adicionar o código necessário para gerar o arquivo deck.yaml com base nos esquemas JSON convertidos
-  
+        - name: Download deck.yaml
+          uses: actions/upload-artifact@v2
+          with:
+            name: deck
+            path: ${{ github.workspace }}/deck.yaml
+              
         - name: Install Kong Deck
           run: npm install -g kong-deck
   
