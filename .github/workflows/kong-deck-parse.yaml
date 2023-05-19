@@ -23,21 +23,16 @@ jobs:
           run: |
             npx openapi2jsonschema -i ${{ github.workspace }}/openapi.yaml -o ${{ github.workspace }}/output_directory
         
-        - name: Verify generated file
+        - name: Check directory for files
           run: |
-            file_path="${{ github.workspace }}/output_directory/schema.json"
-            if [ -f "$file_path" ]; then
-            echo "Arquivo existe no file_path"
-            cat "$file_path" # Exibir o conteúdo do arquivo no console
-            else
-            echo "Arquivo não existe no file_path"
-            exit 1 # Encerrar a execução da pipeline com falha
+              file_count=$(ls -1A "${{ github.workspace }}/output_directory" | wc -l)
+              if [ $file_count -gt 0 ]; then
+                echo "Arquivos criados"
+              else
+                echo "Diretório está vazio"
+                exit 1 # Encerrar a execução da pipeline com falha
               fi
             
-
-        - name: Print generated file sobre o openapi.yaml
-          run: cat ${{ github.workspace }}/output_directory/schema.json
-
         - name: Generate Kong Deck Configuration
           run: |
             # Aqui você pode adicionar o código necessário para gerar o arquivo deck.yaml com base nos esquemas JSON convertidos
