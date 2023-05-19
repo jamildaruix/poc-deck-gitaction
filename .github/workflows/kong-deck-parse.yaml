@@ -28,8 +28,9 @@ jobs:
               echo "---" > "${{ github.workspace }}/deck.yaml"
               for file in $(find "${{ github.workspace }}/output_directory" -type f -name "*.json"); do
                 echo "Processing file: $file"
-                echo "  - $(cat $file)" >> "${{ github.workspace }}/deck.yaml"
+                kong deck convert --from json --to yaml $file >> "${{ github.workspace }}/deck.yaml"
               done
+          
           
         - name: Print deck.yaml content
           run: cat ${{ github.workspace }}/deck.yaml
