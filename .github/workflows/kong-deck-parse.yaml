@@ -13,9 +13,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Install openapi2jsonschema
+        run: npm install -g @openapi-contrib/openapi-schema-to-json-schema
+
       - name: Convert OpenAPI to JSON Schema
         run: |
-          npm install -g openapi2jsonschema
           openapi2jsonschema -o output_directory input_file.yaml
 
       - name: Generate Kong Deck Configuration
