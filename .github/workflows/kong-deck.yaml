@@ -3,7 +3,7 @@ name: Kong Deck POC
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   deploy_kong:
