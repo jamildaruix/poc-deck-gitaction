@@ -3,17 +3,20 @@ name: Kong Deck POC
 on:
   push:
     branches:
-      - master
-
+      - main
+          
 jobs:
-  deploy_kong:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Deploy Kong Deck
-        uses: kong/deck@v1
-        with:
-          deck_args: sync --config deck.yaml
+      - name: Prompt for approval
+        id: approval
+        run: echo "Do you want to proceed with this workflow? (y/n)"
+      
+      - name: Run workflow if approved
+        if: ${{ steps.approval.outputs.result == 'y' }}
+        run: |
+          # Add your workflow steps here
+          echo "Workflow execution begins!"
+      
