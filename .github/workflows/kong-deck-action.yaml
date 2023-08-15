@@ -8,6 +8,7 @@ on:
 jobs:
   deploy_kong:
     runs-on: ubuntu-latest
+    env: development
 
     steps:
       - name: Checkout code
